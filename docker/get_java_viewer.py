@@ -257,7 +257,8 @@ def get_java_viewer(
     if format_jnlp and session_cookie_key is None:
         raise FormatJnlpError("Formatting JNLP file requested but no session cookie key given!")
     base_url = "https://{}".format(hostname)
-    download_url = urllib.parse.urljoin(base_url, download_endpoint, hostname)
+    download_endpoint = download_endpoint.join("?EXTRNIP={}&JNLPSTR=JViewer".format(hostname))
+    download_url = urllib.parse.urljoin(base_url, download_endpoint)
     session = requests.Session()
 
     def do_login(session_cookie_key):
